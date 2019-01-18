@@ -155,13 +155,9 @@ class GameSence extends eui.Component {
      * 重置数据
      */
     public resetgameSence() {
-        // console.log(SenceManager.Instance.gameSence)
         //通过levelDataManager获取当前关卡id和数据
         this.currenID = LevelDataManager.Instance.curLevelID;
         this.curLevelData = LevelDataManager.Instance.curLevelData;
-        // console.log(`------resetgameSence------------`);
-        // console.log(this.currenID, this.curLevelData.answer);
-        // console.log(`--------------------------------`);
         //更新img
         this.img.texture = RES.getRes(this.curLevelData.img);
         //更新答案框
