@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="Item_WordSkin"
+ xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect fillColor="0xFFFFFF" strokeColor="0x0276D0" strokeWeight="4" ellipseHeight="20" ellipseWidth="20" height="80" width="80" locked="true"/>
+	<e:Label id="word" text="" textColor="0" size="50" bold="true" fontFamily="Microsoft YaHei" verticalAlign="middle" textAlign="center" horizontalCenter="0" verticalCenter="4" locked="true"/>
+</e:Skin>

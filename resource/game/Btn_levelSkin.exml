@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="Btn_levelSkin" currentState="disabled" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"  states="disabled,down,unLocked" >
+	<e:Image id="btn_on" source="gs_select_1_png" visible="true" scaleX.down="0.9" scaleY.down="0.9"  locked="true"/>
+	<e:Image id="btn_off" source="gs_select_dis_png" visible.down="false" visible.unLocked="false" locked="true"/>
+</e:Skin>
