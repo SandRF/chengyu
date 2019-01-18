@@ -7,7 +7,7 @@ class LevelSence extends eui.Component {
     //
     public levelsGroup: eui.Group;
     private btnHeight: number = 80;
-    
+
     public constructor() {
         super();
         this.levelsGroup = new eui.Group();
@@ -44,6 +44,8 @@ class LevelSence extends eui.Component {
         //隐藏滑动条
         this.levelScroll.verticalScrollBar.autoVisibility = false;
         this.levelScroll.verticalScrollBar.visible = false;
+
+        egret.localStorage.setItem('1', 'true');
 
         for (let i = 0; i < LevelDataManager.Instance.num_levels; i++) {
             let btn = new Btn_level(i + 1);

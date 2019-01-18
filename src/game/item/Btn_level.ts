@@ -11,6 +11,7 @@ class Btn_level extends eui.Component {
     public constructor(levelNum: number) {
         super();
         this._levelNum = levelNum;
+        this.name = `${this._levelNum}`;
         this.skinName = "Btn_levelSkin";
     }
 

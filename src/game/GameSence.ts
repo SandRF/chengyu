@@ -114,8 +114,6 @@ class GameSence extends eui.Component {
             }
             //四个字都已经选择了
             if (this.answerArr.length == this.answerNum) {
-                // console.log(`四个字填满`)
-                // console.log(this.answerArr)
                 this.isClear();
             }
         }
@@ -129,8 +127,6 @@ class GameSence extends eui.Component {
             (this.wordGroup.getChildAt((e.target as Item_Answer).indexFrom) as Item_Word).word.visible = true;
             let index: number = this.answerGroup.getChildIndex(e.target);
             this.answerArr.splice(index, 1);
-            // console.log(`移除后:`);
-            // console.log(this.answerArr)
         }
     }
 
@@ -141,12 +137,12 @@ class GameSence extends eui.Component {
     private isClear() {
         let answer: string = this.answerArr.join('');
         if (answer == this.curLevelData.answer) {
-            // console.log(`isclear`)
             SoundManager.Instance.play_ef_right();
             //解锁记录 存储到本地 将下一个关解锁
             egret.localStorage.setItem(`${this.currenID + 1}`, `true`);
-            //更新按钮状态为unlock //index正好是(this.currenID + 1)-1
-            let nextLevel_btn = SenceManager.Instance.levelSence.levelsGroup.getChildAt(this.currenID) as Btn_level;
+            console.log(`将${this.currenID + 1}设置为true`)
+            //更新按钮状态为unlock //通过id设置(name属性)
+            let nextLevel_btn = SenceManager.Instance.levelSence.levelsGroup.getChildByName(`${this.currenID + 1}`) as Btn_level;
             nextLevel_btn.setUnlocked(true);
             //弹出通关界面
             SenceManager.Instance.popClearSence();
