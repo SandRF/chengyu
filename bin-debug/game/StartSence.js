@@ -20,6 +20,7 @@ var StartSence = (function (_super) {
         this.init();
     };
     StartSence.prototype.init = function () {
+        SoundManager.Instance.playbgm();
         this.btn_start.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
             SoundManager.Instance.play_ef_btnclick();
             SenceManager.Instance.addSence(SenceManager.Instance.levelSence);

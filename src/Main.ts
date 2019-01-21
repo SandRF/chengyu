@@ -66,14 +66,23 @@ class Main extends eui.UILayer {
 
     }
 
+    //loading UI 没写 服务器
     private async loadResource() {
         try {
+            //设置跨域
+            egret.ImageLoader.crossOrigin = "anonymous";
+
             const loadingView = new LoadingUI();
             this.stage.addChild(loadingView);
-            await RES.loadConfig("resource/default.res.json", "resource/");
+            // await RES.loadConfig("default.res.json", "http://localhost:8080/resource/");
+            // await RES.loadConfig("default.res.json", "https://sandrf.github.io/ChengYuWXResource/resource/");
+            await RES.loadConfig("default.res.json", "http://132.232.245.143:8080/static/resource/");
+                 
             await this.loadTheme();
-            await RES.loadGroup("preload", 0, loadingView);
+            await RES.loadGroup("preload", 0, loadingView);            
             this.stage.removeChild(loadingView);
+            const loadingView2 = new LoadingUI();
+            await SoundManager.Instance;
         }
         catch (e) {
             console.error(e);
@@ -84,7 +93,7 @@ class Main extends eui.UILayer {
         return new Promise((resolve, reject) => {
             // load skin theme configuration file, you can manually modify the file. And replace the default skin.
             //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
-            let theme = new eui.Theme("resource/default.thm.json", this.stage);
+            let theme = new eui.Theme("http://132.232.245.143:8080/static/resource/default.thm.json", this.stage);
             theme.addEventListener(eui.UIEvent.COMPLETE, () => {
                 resolve();
             }, this);

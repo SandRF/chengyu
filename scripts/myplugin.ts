@@ -6,8 +6,21 @@ export class CustomPlugin implements plugins.Command {
 
     constructor() {
     }
-
+    
     async onFile(file: plugins.File) {
+        if (file.basename == "manifest.js") {
+            let s = file.contents.toString();
+            let arr = s.split("\n");
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i].indexOf("lib.min.js") != -1) {
+                    arr.unshift(arr[i]);
+                    arr.splice(i + 1, 1);
+                    s = arr.join('\n');
+                    file.contents = new Buffer(s);
+                    break;
+                }
+            }
+        }
         return file;
     }
 

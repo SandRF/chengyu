@@ -84,7 +84,6 @@ class GameSence extends eui.Component {
         this.answerGroup.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchAnswer, this);
     }
 
-
     /**对文字随机排序 */
     private randomWords(words: string) {
         let arr = words.split('');

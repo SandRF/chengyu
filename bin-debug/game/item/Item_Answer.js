@@ -19,3 +19,4 @@ var Item_Answer = (function (_super) {
     return Item_Answer;
 }(Item_Word));
 __reflect(Item_Answer.prototype, "Item_Answer");
+window['Item_Answer'] = Item_Answer;

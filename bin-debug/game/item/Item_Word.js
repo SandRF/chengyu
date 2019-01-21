@@ -23,3 +23,4 @@ var Item_Word = (function (_super) {
     return Item_Word;
 }(eui.Component));
 __reflect(Item_Word.prototype, "Item_Word");
+window['Item_Word'] = Item_Word;

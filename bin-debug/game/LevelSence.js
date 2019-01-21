@@ -43,6 +43,7 @@ var LevelSence = (function (_super) {
         //隐藏滑动条
         this.levelScroll.verticalScrollBar.autoVisibility = false;
         this.levelScroll.verticalScrollBar.visible = false;
+        egret.localStorage.setItem('1', 'true');
         for (var i = 0; i < LevelDataManager.Instance.num_levels; i++) {
             var btn = new Btn_level(i + 1);
             this.levelsGroup.addChild(btn);

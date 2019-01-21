@@ -22,3 +22,4 @@ var Btn_default = (function (_super) {
     return Btn_default;
 }(eui.Component));
 __reflect(Btn_default.prototype, "Btn_default");
+window['Btn_default'] = Btn_default;

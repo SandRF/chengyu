@@ -38,40 +38,66 @@ class SoundManager {
 
 
     public constructor() {
+        console.log(`SoundManager的构造函数`)
         this.startLoad();
 
     }
 
     private startLoad() {
         this.bgm = new egret.Sound();
-        this.bgm.load("resource/assets/data/sound/Music.mp3");
-        this.bgm.addEventListener(egret.Event.COMPLETE, () => {
+        this.bgm = RES.getRes("Music_mp3");
+        if (this.bgm != undefined) {
             this.isbgmComplete = true;
-        }, this);
+        }
+        // this.bgm.load("resource/assets/data/sound/Music.mp3");
+        // this.bgm.addEventListener(egret.Event.COMPLETE, () => {
+        //     console.log(`音乐文件加载完成`);
+        //     this.isbgmComplete = true;
+        // }, this);
 
         this.ef_right = new egret.Sound();
-        this.ef_right.load("resource/assets/data/sound/right.mp3");
-        this.ef_right.addEventListener(egret.Event.COMPLETE, () => {
+        this.ef_right = RES.getRes("right_mp3");
+        if (this.ef_right != undefined) {
             this.isef_rightComplete = true;
-        }, this);
+        }
+        // this.ef_right.load("resource/assets/data/sound/right.mp3");
+        // this.ef_right.addEventListener(egret.Event.COMPLETE, () => {
+        //     console.log(`音乐文件加载完成`);
+        //     this.isef_rightComplete = true;
+        // }, this);
 
         this.ef_wrong = new egret.Sound();
-        this.ef_wrong.load("resource/assets/data/sound/wrong.mp3");
-        this.ef_wrong.addEventListener(egret.Event.COMPLETE, () => {
+        this.ef_wrong = RES.getRes("wrong_mp3");
+        if (this.ef_word != undefined) {
             this.isef_wrongComplete = true;
-        }, this);
+        }
+        // this.ef_wrong.load("resource/assets/data/sound/wrong.mp3");        
+        // this.ef_wrong.addEventListener(egret.Event.COMPLETE, () => {
+        //     console.log(`音乐文件加载完成`);
+        //     this.isef_wrongComplete = true;
+        // }, this);
 
-        this.ef_btnclick = new egret.Sound();
-        this.ef_btnclick.load("resource/assets/data/sound/buttonclick.mp3");
-        this.ef_btnclick.addEventListener(egret.Event.COMPLETE, () => {
+        this.ef_btnclick = new egret.Sound();        
+        this.ef_btnclick = RES.getRes("buttonclick_mp3");
+        if (this.ef_btnclick != undefined) {
             this.isef_btnclickComplete = true;
-        }, this);
+        }
+        // this.ef_btnclick.load("resource/assets/data/sound/buttonclick.mp3");
+        // this.ef_btnclick.addEventListener(egret.Event.COMPLETE, () => {
+        //     console.log(`音乐文件加载完成`);
+        //     this.isef_btnclickComplete = true;
+        // }, this)
 
         this.ef_word = new egret.Sound();
-        this.ef_word.load("resource/assets/data/sound/type_word.mp3");
-        this.ef_word.addEventListener(egret.Event.COMPLETE, () => {
+        this.ef_word = RES.getRes("type_word_mp3");        
+        if (this.ef_word != undefined) {
             this.isef_wordComplete = true;
-        }, this);
+        }
+        // this.ef_word.load("resource/assets/data/sound/type_word.mp3");
+        // this.ef_word.addEventListener(egret.Event.COMPLETE, () => {
+        //     console.log(`音乐文件加载完成`);
+        //     this.isef_wordComplete = true;
+        // }, this);
     }
 
     /**开启bgm */
@@ -137,7 +163,7 @@ class SoundManager {
             this.ef_word.play(0, 1);
         }
     }
-    
+
     /**读取音效本地配置 */
     public get isEffectOn() {
         let ret = egret.localStorage.getItem('isEffectOn');

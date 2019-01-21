@@ -13,6 +13,7 @@ var Btn_level = (function (_super) {
     function Btn_level(levelNum) {
         var _this = _super.call(this) || this;
         _this._levelNum = levelNum;
+        _this.name = "" + _this._levelNum;
         _this.skinName = "Btn_levelSkin";
         return _this;
     }
@@ -88,3 +89,4 @@ var Btn_level = (function (_super) {
     return Btn_level;
 }(eui.Component));
 __reflect(Btn_level.prototype, "Btn_level");
+window['Btn_level'] = Btn_level;

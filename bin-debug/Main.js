@@ -117,17 +117,24 @@ var Main = (function (_super) {
             });
         });
     };
+    //loading UI 没写 服务器
     Main.prototype.loadResource = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var loadingView, e_1;
+            var loadingView, loadingView2, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 4, , 5]);
+                        _a.trys.push([0, 5, , 6]);
+                        //设置跨域
+                        egret.ImageLoader.crossOrigin = "anonymous";
                         loadingView = new LoadingUI();
                         this.stage.addChild(loadingView);
-                        return [4 /*yield*/, RES.loadConfig("resource/default.res.json", "resource/")];
+                        // await RES.loadConfig("default.res.json", "http://localhost:8080/resource/");
+                        // await RES.loadConfig("default.res.json", "https://sandrf.github.io/ChengYuWXResource/resource/");
+                        return [4 /*yield*/, RES.loadConfig("default.res.json", "http://132.232.245.143:8080/static/resource/")];
                     case 1:
+                        // await RES.loadConfig("default.res.json", "http://localhost:8080/resource/");
+                        // await RES.loadConfig("default.res.json", "https://sandrf.github.io/ChengYuWXResource/resource/");
                         _a.sent();
                         return [4 /*yield*/, this.loadTheme()];
                     case 2:
@@ -136,12 +143,16 @@ var Main = (function (_super) {
                     case 3:
                         _a.sent();
                         this.stage.removeChild(loadingView);
-                        return [3 /*break*/, 5];
+                        loadingView2 = new LoadingUI();
+                        return [4 /*yield*/, SoundManager.Instance];
                     case 4:
+                        _a.sent();
+                        return [3 /*break*/, 6];
+                    case 5:
                         e_1 = _a.sent();
                         console.error(e_1);
-                        return [3 /*break*/, 5];
-                    case 5: return [2 /*return*/];
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
                 }
             });
         });
@@ -151,7 +162,7 @@ var Main = (function (_super) {
         return new Promise(function (resolve, reject) {
             // load skin theme configuration file, you can manually modify the file. And replace the default skin.
             //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
-            var theme = new eui.Theme("resource/default.thm.json", _this.stage);
+            var theme = new eui.Theme("http://132.232.245.143:8080/static/resource/default.thm.json", _this.stage);
             theme.addEventListener(eui.UIEvent.COMPLETE, function () {
                 resolve();
             }, _this);

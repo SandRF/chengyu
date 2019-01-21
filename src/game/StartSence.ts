@@ -16,6 +16,9 @@ class StartSence extends eui.Component {
     }
 
     private init() {
+
+        SoundManager.Instance.playbgm();
+
         this.btn_start.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
             SoundManager.Instance.play_ef_btnclick();
             SenceManager.Instance.addSence(SenceManager.Instance.levelSence);

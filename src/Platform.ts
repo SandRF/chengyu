@@ -10,6 +10,7 @@ declare interface Platform {
 
     login(): Promise<any>
 
+    soundOnLoadStart(host:string, resource:string):Promise<any>
 }
 
 class DebugPlatform implements Platform {
@@ -17,6 +18,9 @@ class DebugPlatform implements Platform {
         return { nickName: "username" }
     }
     async login() {
+
+    }
+    async soundOnLoadStart(){
 
     }
 }

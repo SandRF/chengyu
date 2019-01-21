@@ -104,8 +104,6 @@ var GameSence = (function (_super) {
             }
             //四个字都已经选择了
             if (this.answerArr.length == this.answerNum) {
-                // console.log(`四个字填满`)
-                // console.log(this.answerArr)
                 this.isClear();
             }
         }
@@ -118,8 +116,6 @@ var GameSence = (function (_super) {
             this.wordGroup.getChildAt(e.target.indexFrom).word.visible = true;
             var index = this.answerGroup.getChildIndex(e.target);
             this.answerArr.splice(index, 1);
-            // console.log(`移除后:`);
-            // console.log(this.answerArr)
         }
     };
     /**
@@ -129,12 +125,12 @@ var GameSence = (function (_super) {
     GameSence.prototype.isClear = function () {
         var answer = this.answerArr.join('');
         if (answer == this.curLevelData.answer) {
-            // console.log(`isclear`)
             SoundManager.Instance.play_ef_right();
             //解锁记录 存储到本地 将下一个关解锁
             egret.localStorage.setItem("" + (this.currenID + 1), "true");
-            //更新按钮状态为unlock //index正好是(this.currenID + 1)-1
-            var nextLevel_btn = SenceManager.Instance.levelSence.levelsGroup.getChildAt(this.currenID);
+            console.log("\u5C06" + (this.currenID + 1) + "\u8BBE\u7F6E\u4E3Atrue");
+            //更新按钮状态为unlock //通过id设置(name属性)
+            var nextLevel_btn = SenceManager.Instance.levelSence.levelsGroup.getChildByName("" + (this.currenID + 1));
             nextLevel_btn.setUnlocked(true);
             //弹出通关界面
             SenceManager.Instance.popClearSence();
@@ -147,13 +143,9 @@ var GameSence = (function (_super) {
      * 重置数据
      */
     GameSence.prototype.resetgameSence = function () {
-        // console.log(SenceManager.Instance.gameSence)
         //通过levelDataManager获取当前关卡id和数据
         this.currenID = LevelDataManager.Instance.curLevelID;
         this.curLevelData = LevelDataManager.Instance.curLevelData;
-        // console.log(`------resetgameSence------------`);
-        // console.log(this.currenID, this.curLevelData.answer);
-        // console.log(`--------------------------------`);
         //更新img
         this.img.texture = RES.getRes(this.curLevelData.img);
         //更新答案框
