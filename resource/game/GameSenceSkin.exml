@@ -4,7 +4,7 @@
 	height="800" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
 	<e:Image source="GameBG3_jpg" fillMode="clip" anchorOffsetX="0" width="480" anchorOffsetY="0" height="800" locked="true"/>
 	<e:Image source="WordFrame_png" y="110" scaleX="0.7" scaleY="0.7" horizontalCenter="-0.5" height="450" visible="true" locked="true"/>
-	<e:Image id="img" y="143.456" source="001_jpg" scaleY="0.75" scaleX="0.75" x="94" locked="true"/>
+	<e:Image id="img" y="143.456" scaleY="0.75" scaleX="0.75" x="94" source="" locked="true"/>
 	<e:Group id="answerGroup" x="108.2" y="352" visible="true" locked="true">
 		<e:layout>
 		<e:HorizontalLayout horizontalAlign="center" verticalAlign="middle" gap="11"/>

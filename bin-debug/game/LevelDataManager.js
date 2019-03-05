@@ -4,6 +4,12 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
 var LevelDataManager = (function () {
     function LevelDataManager() {
         this.num_levels = GameData.Instance.dataArr.length;
+        this.total_level = Number(egret.localStorage.getItem('total_level'));
+        if (this.total_level == 0)
+            this.total_level = 1;
+        // console.log(this.total_level);//当total_level不存在时，应为undefined，经过强转变为0；
+        this.curLoadGroup = Math.floor(this.total_level / 50) + 1;
+        console.log(Math.floor(this.total_level / 50) + 1);
     }
     Object.defineProperty(LevelDataManager, "Instance", {
         get: function () {

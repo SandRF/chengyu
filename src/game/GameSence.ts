@@ -7,7 +7,7 @@ class GameSence extends eui.Component {
     /**当前关卡数据 */
     private curLevelData: ITEM;
     /**当前关卡ID */
-    private currenID: number;
+    private currentID: number;
     /**已选中的文字 */
     private answerArr: string[] = [];
     private answerNum: number = 4;
@@ -24,7 +24,7 @@ class GameSence extends eui.Component {
 
     private init() {
         //通过levelDataManager获取当前关卡id和数据
-        this.currenID = LevelDataManager.Instance.curLevelID;
+        this.currentID = LevelDataManager.Instance.curLevelID;
         this.curLevelData = LevelDataManager.Instance.curLevelData;
 
         //设置img纹理
@@ -55,7 +55,7 @@ class GameSence extends eui.Component {
         //选项字符串前半
         let words: string = this.curLevelData.word + this.curLevelData.answer;
         //取另外一组的字 随机 从当前组往后
-        let num = Math.floor(Math.random() * (LevelDataManager.Instance.num_levels - this.currenID) + this.currenID);
+        let num = Math.floor(Math.random() * (LevelDataManager.Instance.num_levels - this.currentID) + this.currentID);
         let ranLevelData = LevelDataManager.Instance.getLevelData(num);
         words += ranLevelData.word + ranLevelData.answer;
         //words随机排序
@@ -98,7 +98,8 @@ class GameSence extends eui.Component {
 
     //点击选择文字
     private onTouchGroup(e: egret.TouchEvent) {
-        if (e.target instanceof Item_Word) {
+        //这里需要判断visible是否为true
+        if (e.target instanceof Item_Word && e.target.word.visible) {
             SoundManager.Instance.play_ef_word();
             for (let i = 0; i < this.answerGroup.numChildren; i++) {
                 let item = this.answerGroup.getChildAt(i) as Item_Answer;
@@ -137,12 +138,18 @@ class GameSence extends eui.Component {
         let answer: string = this.answerArr.join('');
         if (answer == this.curLevelData.answer) {
             SoundManager.Instance.play_ef_right();
+
             //解锁记录 存储到本地 将下一个关解锁
-            egret.localStorage.setItem(`${this.currenID + 1}`, `true`);
-            console.log(`将${this.currenID + 1}设置为true`)
+            if (this.currentID >= LevelDataManager.Instance.total_level) {
+                LevelDataManager.Instance.total_level = this.currentID + 1;
+                egret.localStorage.setItem(`total_level`, `${LevelDataManager.Instance.total_level}`);
+            }
+
             //更新按钮状态为unlock //通过id设置(name属性)
-            let nextLevel_btn = SenceManager.Instance.levelSence.levelsGroup.getChildByName(`${this.currenID + 1}`) as Btn_level;
+            let nextLevel_btn = SenceManager.Instance.levelSence.levelsGroup.getChildByName(`${this.currentID + 1}`) as Btn_level;
             nextLevel_btn.setUnlocked(true);
+            //判断是否需要加载下一组资源 web需要缓存到本地再从本地优先读取
+            // LevelDataManager.Instance.loadNextGroup();
             //弹出通关界面
             SenceManager.Instance.popClearSence();
         } else {
@@ -155,10 +162,14 @@ class GameSence extends eui.Component {
      */
     public resetgameSence() {
         //通过levelDataManager获取当前关卡id和数据
-        this.currenID = LevelDataManager.Instance.curLevelID;
+        this.currentID = LevelDataManager.Instance.curLevelID;
         this.curLevelData = LevelDataManager.Instance.curLevelData;
         //更新img
         this.img.texture = RES.getRes(this.curLevelData.img);
+        console.log(this.curLevelData.img);
+
+        // this.img.source=`resource/assets/data/images/${this.curLevelData.img}`;
+
         //更新答案框
         for (let i = 0; i < this.answerNum; i++) {
             (this.answerGroup.getChildAt(i) as Item_Answer).word.text = '';

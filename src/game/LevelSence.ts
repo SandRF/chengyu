@@ -45,8 +45,7 @@ class LevelSence extends eui.Component {
         this.levelScroll.verticalScrollBar.autoVisibility = false;
         this.levelScroll.verticalScrollBar.visible = false;
 
-        egret.localStorage.setItem('1', 'true');
-
+        //生成关卡按钮
         for (let i = 0; i < LevelDataManager.Instance.num_levels; i++) {
             let btn = new Btn_level(i + 1);
             this.levelsGroup.addChild(btn);

@@ -130,22 +130,55 @@ var Main = (function (_super) {
                         loadingView = new LoadingUI();
                         this.stage.addChild(loadingView);
                         // await RES.loadConfig("default.res.json", "http://localhost:8080/resource/");
-                        // await RES.loadConfig("default.res.json", "https://sandrf.github.io/ChengYuWXResource/resource/");
-                        return [4 /*yield*/, RES.loadConfig("default.res.json", "http://132.232.245.143:8080/static/resource/")];
+                        return [4 /*yield*/, RES.loadConfig("default.res.json", "https://sandrf.github.io/ChengYuWXResource/resource/")];
                     case 1:
                         // await RES.loadConfig("default.res.json", "http://localhost:8080/resource/");
-                        // await RES.loadConfig("default.res.json", "https://sandrf.github.io/ChengYuWXResource/resource/");
                         _a.sent();
+                        // await RES.loadConfig("default.res.json", "http://132.232.245.143:8080/static/resource/");
+                        // await RES.loadConfig("default.res.json", "http://47.107.255.234/static/ChengYuWXResource/resource/");
                         return [4 /*yield*/, this.loadTheme()];
                     case 2:
+                        // await RES.loadConfig("default.res.json", "http://132.232.245.143:8080/static/resource/");
+                        // await RES.loadConfig("default.res.json", "http://47.107.255.234/static/ChengYuWXResource/resource/");
                         _a.sent();
                         return [4 /*yield*/, RES.loadGroup("preload", 0, loadingView)];
                     case 3:
                         _a.sent();
                         this.stage.removeChild(loadingView);
                         loadingView2 = new LoadingUI();
+                        this.stage.addChild(loadingView2);
+                        //这里应该读取本地通关数，判断要加载多少关卡
+                        //还是只加载前50关？
+                        // await RES.loadGroup("group_1", 0, loadingView2);
+                        // this.stage.removeChild(loadingView2);
+                        //加载关卡数据(提前加载以便使用LevelDataManager)
+                        // GameData.Instance.getJsonData("questions_json");
+                        // let arr: string[]=[];
+                        // for (let i = 0; i < LevelDataManager.Instance.curLoadGroup; i++) {
+                        //     arr.push(`group_${i + 1}`)
+                        // }
+                        // await RES.createGroup('group', arr);
+                        // await RES.loadGroup("group", 0, loadingView2);
+                        // this.stage.removeChild(loadingView2);
+                        //魔改只有100关的
+                        //没有额外分组
                         return [4 /*yield*/, SoundManager.Instance];
                     case 4:
+                        //这里应该读取本地通关数，判断要加载多少关卡
+                        //还是只加载前50关？
+                        // await RES.loadGroup("group_1", 0, loadingView2);
+                        // this.stage.removeChild(loadingView2);
+                        //加载关卡数据(提前加载以便使用LevelDataManager)
+                        // GameData.Instance.getJsonData("questions_json");
+                        // let arr: string[]=[];
+                        // for (let i = 0; i < LevelDataManager.Instance.curLoadGroup; i++) {
+                        //     arr.push(`group_${i + 1}`)
+                        // }
+                        // await RES.createGroup('group', arr);
+                        // await RES.loadGroup("group", 0, loadingView2);
+                        // this.stage.removeChild(loadingView2);
+                        //魔改只有100关的
+                        //没有额外分组
                         _a.sent();
                         return [3 /*break*/, 6];
                     case 5:
@@ -162,7 +195,9 @@ var Main = (function (_super) {
         return new Promise(function (resolve, reject) {
             // load skin theme configuration file, you can manually modify the file. And replace the default skin.
             //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
-            var theme = new eui.Theme("http://132.232.245.143:8080/static/resource/default.thm.json", _this.stage);
+            var theme = new eui.Theme("resource/default.thm.json", _this.stage); //从git加载资源
+            // let theme = new eui.Theme("http://132.232.245.143:8080/static/resource/default.thm.json", this.stage);
+            // let theme = new eui.Theme("http://47.107.255.234/static/ChengYuWXResource/resource//default.thm.json", this.stage);
             theme.addEventListener(eui.UIEvent.COMPLETE, function () {
                 resolve();
             }, _this);
@@ -173,7 +208,7 @@ var Main = (function (_super) {
      * Create scene interface
      */
     Main.prototype.createGameScene = function () {
-        //加载关卡数据
+        // //加载关卡数据
         GameData.Instance.getJsonData("questions_json");
         //设置根场景
         SenceManager.Instance.setStage(this);

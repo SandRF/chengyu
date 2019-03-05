@@ -36,7 +36,7 @@ var Btn_level = (function (_super) {
     /**更新解锁状态 */
     Btn_level.prototype.updateStatus = function () {
         //从本地读取通关记录
-        this._isUnlocked = Boolean(egret.localStorage.getItem("" + this._levelNum));
+        this._isUnlocked = (this._levelNum <= LevelDataManager.Instance.total_level);
         if (this._isUnlocked) {
             this.currentState = "unLocked";
         }
@@ -73,13 +73,9 @@ var Btn_level = (function (_super) {
         this.addEventListener(egret.TouchEvent.TOUCH_END, function () {
             if (_this._isUnlocked) {
                 _this.currentState = "unLocked";
-                // console.log(`------btn_level------------`)
-                // console.log(`选择关卡: ${this._levelNum}`);
                 //更新数据管理类中的当前关卡id和数据
                 LevelDataManager.Instance.setCurrentLevel(_this._levelNum);
-                // console.log(LevelDataManager.Instance.curLevelID, LevelDataManager.Instance.curLevelData.answer);
                 SenceManager.Instance.createGameSence();
-                // console.log(`---------------------------`)
             }
             else {
                 console.log("\u672A\u89E3\u9501\u5173\u5361: " + _this._levelNum);

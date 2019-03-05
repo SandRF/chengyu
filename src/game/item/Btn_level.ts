@@ -35,8 +35,10 @@ class Btn_level extends eui.Component {
 
     /**更新解锁状态 */
     private updateStatus() {
+
         //从本地读取通关记录
-        this._isUnlocked = Boolean(egret.localStorage.getItem(`${this._levelNum}`));
+        this._isUnlocked = (this._levelNum <= LevelDataManager.Instance.total_level);
+
         if (this._isUnlocked) {
             this.currentState = "unLocked";
         } else {
@@ -72,13 +74,9 @@ class Btn_level extends eui.Component {
         this.addEventListener(egret.TouchEvent.TOUCH_END, () => {
             if (this._isUnlocked) {
                 this.currentState = "unLocked";
-                // console.log(`------btn_level------------`)
-                // console.log(`选择关卡: ${this._levelNum}`);
                 //更新数据管理类中的当前关卡id和数据
                 LevelDataManager.Instance.setCurrentLevel(this._levelNum);
-                // console.log(LevelDataManager.Instance.curLevelID, LevelDataManager.Instance.curLevelData.answer);
                 SenceManager.Instance.createGameSence();
-                // console.log(`---------------------------`)
             } else {
                 console.log(`未解锁关卡: ${this._levelNum}`);
             }

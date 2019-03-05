@@ -75,13 +75,34 @@ class Main extends eui.UILayer {
             const loadingView = new LoadingUI();
             this.stage.addChild(loadingView);
             // await RES.loadConfig("default.res.json", "http://localhost:8080/resource/");
-            // await RES.loadConfig("default.res.json", "https://sandrf.github.io/ChengYuWXResource/resource/");
-            await RES.loadConfig("default.res.json", "http://132.232.245.143:8080/static/resource/");
-                 
+            await RES.loadConfig("default.res.json", "https://sandrf.github.io/ChengYuWXResource/resource/");
+            // await RES.loadConfig("default.res.json", "http://132.232.245.143:8080/static/resource/");
+            // await RES.loadConfig("default.res.json", "http://47.107.255.234/static/ChengYuWXResource/resource/");
+
             await this.loadTheme();
-            await RES.loadGroup("preload", 0, loadingView);            
+            await RES.loadGroup("preload", 0, loadingView);
             this.stage.removeChild(loadingView);
+
             const loadingView2 = new LoadingUI();
+            this.stage.addChild(loadingView2);
+            
+            //这里应该读取本地通关数，判断要加载多少关卡
+            //还是只加载前50关？
+            // await RES.loadGroup("group_1", 0, loadingView2);
+            // this.stage.removeChild(loadingView2);
+
+            //加载关卡数据(提前加载以便使用LevelDataManager)
+            // GameData.Instance.getJsonData("questions_json");
+            // let arr: string[]=[];
+            // for (let i = 0; i < LevelDataManager.Instance.curLoadGroup; i++) {
+            //     arr.push(`group_${i + 1}`)
+            // }
+            // await RES.createGroup('group', arr);
+            // await RES.loadGroup("group", 0, loadingView2);
+            // this.stage.removeChild(loadingView2);
+
+            //魔改只有100关的
+            //没有额外分组
             await SoundManager.Instance;
         }
         catch (e) {
@@ -93,7 +114,9 @@ class Main extends eui.UILayer {
         return new Promise((resolve, reject) => {
             // load skin theme configuration file, you can manually modify the file. And replace the default skin.
             //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
-            let theme = new eui.Theme("http://132.232.245.143:8080/static/resource/default.thm.json", this.stage);
+            let theme = new eui.Theme("resource/default.thm.json", this.stage);//从git加载资源
+            // let theme = new eui.Theme("http://132.232.245.143:8080/static/resource/default.thm.json", this.stage);
+            // let theme = new eui.Theme("http://47.107.255.234/static/ChengYuWXResource/resource//default.thm.json", this.stage);
             theme.addEventListener(eui.UIEvent.COMPLETE, () => {
                 resolve();
             }, this);
@@ -107,7 +130,7 @@ class Main extends eui.UILayer {
      * Create scene interface
      */
     protected createGameScene(): void {
-        //加载关卡数据
+        // //加载关卡数据
         GameData.Instance.getJsonData("questions_json");
         //设置根场景
         SenceManager.Instance.setStage(this);

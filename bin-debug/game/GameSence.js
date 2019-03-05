@@ -24,7 +24,7 @@ var GameSence = (function (_super) {
     };
     GameSence.prototype.init = function () {
         //通过levelDataManager获取当前关卡id和数据
-        this.currenID = LevelDataManager.Instance.curLevelID;
+        this.currentID = LevelDataManager.Instance.curLevelID;
         this.curLevelData = LevelDataManager.Instance.curLevelData;
         //设置img纹理
         this.img.texture = RES.getRes(this.curLevelData.img);
@@ -50,7 +50,7 @@ var GameSence = (function (_super) {
         //选项字符串前半
         var words = this.curLevelData.word + this.curLevelData.answer;
         //取另外一组的字 随机 从当前组往后
-        var num = Math.floor(Math.random() * (LevelDataManager.Instance.num_levels - this.currenID) + this.currenID);
+        var num = Math.floor(Math.random() * (LevelDataManager.Instance.num_levels - this.currentID) + this.currentID);
         var ranLevelData = LevelDataManager.Instance.getLevelData(num);
         words += ranLevelData.word + ranLevelData.answer;
         //words随机排序
@@ -89,7 +89,8 @@ var GameSence = (function (_super) {
     };
     //点击选择文字
     GameSence.prototype.onTouchGroup = function (e) {
-        if (e.target instanceof Item_Word) {
+        //这里需要判断visible是否为true
+        if (e.target instanceof Item_Word && e.target.word.visible) {
             SoundManager.Instance.play_ef_word();
             for (var i = 0; i < this.answerGroup.numChildren; i++) {
                 var item = this.answerGroup.getChildAt(i);
@@ -127,11 +128,15 @@ var GameSence = (function (_super) {
         if (answer == this.curLevelData.answer) {
             SoundManager.Instance.play_ef_right();
             //解锁记录 存储到本地 将下一个关解锁
-            egret.localStorage.setItem("" + (this.currenID + 1), "true");
-            console.log("\u5C06" + (this.currenID + 1) + "\u8BBE\u7F6E\u4E3Atrue");
+            if (this.currentID >= LevelDataManager.Instance.total_level) {
+                LevelDataManager.Instance.total_level = this.currentID + 1;
+                egret.localStorage.setItem("total_level", "" + LevelDataManager.Instance.total_level);
+            }
             //更新按钮状态为unlock //通过id设置(name属性)
-            var nextLevel_btn = SenceManager.Instance.levelSence.levelsGroup.getChildByName("" + (this.currenID + 1));
+            var nextLevel_btn = SenceManager.Instance.levelSence.levelsGroup.getChildByName("" + (this.currentID + 1));
             nextLevel_btn.setUnlocked(true);
+            //判断是否需要加载下一组资源 web需要缓存到本地再从本地优先读取
+            // LevelDataManager.Instance.loadNextGroup();
             //弹出通关界面
             SenceManager.Instance.popClearSence();
         }
@@ -144,10 +149,12 @@ var GameSence = (function (_super) {
      */
     GameSence.prototype.resetgameSence = function () {
         //通过levelDataManager获取当前关卡id和数据
-        this.currenID = LevelDataManager.Instance.curLevelID;
+        this.currentID = LevelDataManager.Instance.curLevelID;
         this.curLevelData = LevelDataManager.Instance.curLevelData;
         //更新img
         this.img.texture = RES.getRes(this.curLevelData.img);
+        console.log(this.curLevelData.img);
+        // this.img.source=`resource/assets/data/images/${this.curLevelData.img}`;
         //更新答案框
         for (var i = 0; i < this.answerNum; i++) {
             this.answerGroup.getChildAt(i).word.text = '';
